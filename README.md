@@ -10,7 +10,7 @@
 - 打开添加窗口时自动用剪贴板里的链接预填（可在设置关闭）。
 - 自动收集 `# 标签`写入 frontmatter，记录来源 URL、抓取时间。
 - 所有网络请求走 Obsidian 内置 `requestUrl`，绕过 CORS。
-- 支持任意 OpenAI 兼容端点（DeepSeek、智谱 GLM、Kimi、OpenAI 等），内置常用服务商快速选择。
+- 支持任意 OpenAI 兼容端点（DeepSeek、MiniMax、通义千问、智谱 GLM、Kimi、OpenAI 等），内置常用服务商快速选择。
 
 ## 工作流
 
@@ -56,6 +56,8 @@ npm run build
 | 服务商 | API Base URL | 模型名 | 获取 API Key |
 |---|---|---|---|
 | DeepSeek | `https://api.deepseek.com` | `deepseek-chat` | https://platform.deepseek.com/api_keys |
+| MiniMax | `https://api.minimax.io/v1` | `MiniMax-M3` | https://platform.minimax.io |
+| 通义千问 | `https://dashscope.aliyuncs.com/compatible-mode/v1` | `qwen-plus` | https://dashscope.console.aliyun.com/apiKey |
 | 智谱 GLM | `https://open.bigmodel.cn/api/paas/v4` | `glm-4-plus` | https://open.bigmodel.cn/usercenter/apikeys |
 | 月之暗面 Kimi | `https://api.moonshot.cn/v1` | `moonshot-v1-8k` | https://platform.moonshot.cn/console/api-keys |
 | OpenAI | `https://api.openai.com/v1` | `gpt-4o-mini` | https://platform.openai.com/api-keys |

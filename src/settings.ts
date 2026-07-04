@@ -7,6 +7,8 @@ import { AIClient } from "./trae-client";
 /** 常用 OpenAI 兼容服务商预设 */
 const PROVIDER_PRESETS: Record<string, { baseUrl: string; model: string }> = {
   "DeepSeek": { baseUrl: "https://api.deepseek.com", model: "deepseek-chat" },
+  "MiniMax": { baseUrl: "https://api.minimax.io/v1", model: "MiniMax-M3" },
+  "通义千问": { baseUrl: "https://dashscope.aliyuncs.com/compatible-mode/v1", model: "qwen-plus" },
   "智谱 GLM": { baseUrl: "https://open.bigmodel.cn/api/paas/v4", model: "glm-4-plus" },
   "月之暗面 Kimi": { baseUrl: "https://api.moonshot.cn/v1", model: "moonshot-v1-8k" },
   "OpenAI": { baseUrl: "https://api.openai.com/v1", model: "gpt-4o-mini" },
@@ -67,7 +69,7 @@ export class TraeSettingTab extends PluginSettingTab {
 
     new Setting(containerEl)
       .setName("模型")
-      .setDesc("如 deepseek-chat、glm-4-plus、moonshot-v1-8k、gpt-4o-mini 等。")
+      .setDesc("如 deepseek-chat、MiniMax-M3、qwen-plus、glm-4-plus、moonshot-v1-8k、gpt-4o-mini 等。")
       .addText((t) =>
         t.setValue(this.plugin.settings.model).onChange(async (v) => {
           this.plugin.settings.model = v;
