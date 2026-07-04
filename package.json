@@ -1,0 +1,29 @@
+{
+  "name": "obsidian-trae",
+  "version": "0.1.0",
+  "description": "在 Obsidian 内通过 Trae Work 整理链接文章并保存为笔记（移动端优先）。",
+  "main": "main.js",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "tsc -noEmit && node esbuild.config.mjs production"
+  },
+  "keywords": [
+    "obsidian",
+    "obsidian-plugin",
+    "trae",
+    "trae-work",
+    "wechat"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "builtin-modules": "^4.0.0",
+    "esbuild": "^0.20.2",
+    "obsidian": "^1.5.0",
+    "tslib": "^2.6.2",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@mozilla/readability": "^0.5.0"
+  }
+}

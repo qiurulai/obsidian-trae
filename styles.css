@@ -1,0 +1,53 @@
+/* Obsidian Trae - 移动端友好样式 */
+
+.obsidian-trae-modal .modal-content {
+  padding: 16px;
+}
+
+.obsidian-trae-modal h2 {
+  margin-top: 0;
+  font-size: 1.2em;
+}
+
+.obsidian-trae-url-input,
+.obsidian-trae-tags-input {
+  width: 100%;
+  margin-bottom: 12px;
+  font-size: 16px; /* 防止 iOS 聚焦时自动放大 */
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.obsidian-trae-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.obsidian-trae-buttons button {
+  min-height: 44px; /* 移动端最小触控目标 */
+  min-width: 88px;
+  padding: 8px 16px;
+}
+
+.obsidian-trae-btn-primary {
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+
+.obsidian-trae-prompt-textarea {
+  width: 100%;
+  font-family: var(--font-monospace);
+}
+
+/* 移动端：按钮拉满、增大触控 */
+.is-mobile .obsidian-trae-modal .modal-content {
+  padding: 20px 16px;
+}
+
+.is-mobile .obsidian-trae-buttons button {
+  flex: 1;
+  min-height: 48px;
+}
