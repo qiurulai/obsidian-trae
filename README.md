@@ -56,7 +56,7 @@ npm run build
 | 服务商 | API Base URL | 模型名 | 获取 API Key |
 |---|---|---|---|
 | DeepSeek | `https://api.deepseek.com` | `deepseek-chat` | https://platform.deepseek.com/api_keys |
-| MiniMax | `https://api.minimax.io/v1` | `MiniMax-M3` | https://platform.minimax.io |
+| MiniMax | `https://api.minimaxi.com/v1` | `MiniMax-M3` | https://platform.minimaxi.com/user-center/payment/token-plan |
 | 通义千问 | `https://dashscope.aliyuncs.com/compatible-mode/v1` | `qwen-plus` | https://dashscope.console.aliyun.com/apiKey |
 | 智谱 GLM | `https://open.bigmodel.cn/api/paas/v4` | `glm-4-plus` | https://open.bigmodel.cn/usercenter/apikeys |
 | 月之暗面 Kimi | `https://api.moonshot.cn/v1` | `moonshot-v1-8k` | https://platform.moonshot.cn/console/api-keys |

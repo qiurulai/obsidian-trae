@@ -7,7 +7,7 @@ import { AIClient } from "./trae-client";
 /** 常用 OpenAI 兼容服务商预设 */
 const PROVIDER_PRESETS: Record<string, { baseUrl: string; model: string }> = {
   "DeepSeek": { baseUrl: "https://api.deepseek.com", model: "deepseek-chat" },
-  "MiniMax": { baseUrl: "https://api.minimax.io/v1", model: "MiniMax-M3" },
+  "MiniMax": { baseUrl: "https://api.minimaxi.com/v1", model: "MiniMax-M3" },
   "通义千问": { baseUrl: "https://dashscope.aliyuncs.com/compatible-mode/v1", model: "qwen-plus" },
   "智谱 GLM": { baseUrl: "https://open.bigmodel.cn/api/paas/v4", model: "glm-4-plus" },
   "月之暗面 Kimi": { baseUrl: "https://api.moonshot.cn/v1", model: "moonshot-v1-8k" },
