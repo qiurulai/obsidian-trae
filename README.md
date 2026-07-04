@@ -23,7 +23,7 @@
 ### 从源码构建
 
 ```bash
-git clone https://github.com/<your-username>/obsidian-trae.git
+git clone https://github.com/qiurulai/obsidian-trae.git
 cd obsidian-trae
 npm install
 npm run build
