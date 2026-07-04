@@ -1,9 +1,9 @@
 // Obsidian Trae 插件入口
-// 在 Obsidian 内通过 Trae Work 整理链接文章并保存为笔记（移动端优先）。
+// 在 Obsidian 内通过 AI 整理链接文章并保存为笔记（移动端优先）。
 
 import { Notice, Plugin } from "obsidian";
 import { Article, DEFAULT_SETTINGS, ObsidianTraeSettings } from "./types";
-import { TraeClient } from "./trae-client";
+import { AIClient } from "./trae-client";
 import { ArticleFetcher } from "./article-fetcher";
 import { NoteWriter } from "./note-writer";
 import { AddLinkModal } from "./modal-add-link";
@@ -28,9 +28,9 @@ export default class ObsidianTraePlugin extends Plugin {
 
     this.addCommand({
       id: "trae-test-connection",
-      name: "测试 Trae 连接",
+      name: "测试 AI 连接",
       callback: async () => {
-        const r = await new TraeClient(this.settings).testConnection();
+        const r = await new AIClient(this.settings).testConnection();
         new Notice(r.message);
       },
     });
@@ -59,12 +59,12 @@ export default class ObsidianTraePlugin extends Plugin {
   }
 
   private async run(url: string, extraTags: string[]) {
-    if (!this.settings.traePat) {
-      new Notice("未配置 Trae PAT，请在设置中填写。");
+    if (!this.settings.apiKey) {
+      new Notice("未配置 API Key，请在设置中填写。");
       return;
     }
 
-    const client = new TraeClient(this.settings);
+    const client = new AIClient(this.settings);
 
     // 1. 抓取正文
     let article: Article | null = null;
@@ -72,7 +72,7 @@ export default class ObsidianTraePlugin extends Plugin {
       new Notice("正在抓取文章…", 3000);
       article = await this.fetcher.fetch(url);
     } catch (e) {
-      new Notice("内置抓取失败，改用 Trae 读取链接…", 3000);
+      new Notice("内置抓取失败，改用 AI 读取链接…", 3000);
     }
 
     // 2. 构造提示词
@@ -85,16 +85,16 @@ export default class ObsidianTraePlugin extends Plugin {
       prompt = `请阅读以下链接的文章并整理为适合 Obsidian 的 Markdown 笔记（保留要点、生成 2-3 句摘要、给出 3-5 个标签、用标题组织结构，只输出可直接保存为 .md 的内容）：\n${url}`;
     }
 
-    // 3. 调用 Trae 整理
-    new Notice("Trae 正在整理文章…", 6000);
+    // 3. 调用 AI 整理
+    new Notice("AI 正在整理文章…", 6000);
     const result = await client.chat(prompt);
     if (!result.ok) {
-      new Notice(`Trae 整理失败：${result.message}`);
+      new Notice(`AI 整理失败：${result.message}`);
       return;
     }
-    const traeMarkdown = result.text;
-    if (!traeMarkdown.trim()) {
-      new Notice("Trae 返回为空，已取消。");
+    const aiMarkdown = result.text;
+    if (!aiMarkdown.trim()) {
+      new Notice("AI 返回为空，已取消。");
       return;
     }
 
@@ -107,7 +107,7 @@ export default class ObsidianTraePlugin extends Plugin {
         textContent: "",
         url,
       };
-      const file = await writer.write(article || fallback, traeMarkdown, extraTags);
+      const file = await writer.write(article || fallback, aiMarkdown, extraTags);
       new Notice(`已保存：${file.basename}`);
     } catch (e) {
       new Notice(`保存失败：${(e as Error).message}`);

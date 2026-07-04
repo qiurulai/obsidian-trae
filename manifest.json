@@ -1,9 +1,9 @@
 {
   "id": "obsidian-trae",
   "name": "Obsidian Trae",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "minAppVersion": "1.5.0",
-  "description": "在 Obsidian 内通过 Trae Work 整理公众号等链接文章并保存为笔记（移动端优先）。",
+  "description": "在 Obsidian 内通过 AI（OpenAI 兼容端点）整理公众号等链接文章并保存为笔记（移动端优先）。",
   "author": "obsidian-trae",
   "authorUrl": "https://github.com/qiurulai/obsidian-trae",
   "isDesktopOnly": false

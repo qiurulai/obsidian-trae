@@ -2,11 +2,11 @@
 
 /** 插件设置 */
 export interface ObsidianTraeSettings {
-  /** Trae 个人访问令牌（PAT），用于调用 Trae 模型 */
-  traePat: string;
-  /** Trae 推理端点地址（OpenAI 兼容） */
-  traeBaseUrl: string;
-  /** 模型名，如 GLM-5.1 */
+  /** API Key，用于调用 OpenAI 兼容的第三方模型端点 */
+  apiKey: string;
+  /** API Base URL（OpenAI 兼容端点，自动拼接 /v1/chat/completions） */
+  apiBaseUrl: string;
+  /** 模型名，如 deepseek-chat、glm-4-plus、moonshot-v1-8k 等 */
   model: string;
   /** 笔记保存目标文件夹 */
   targetFolder: string;
@@ -14,16 +14,16 @@ export interface ObsidianTraeSettings {
   noteNameTemplate: string;
   /** 提示词模板，可用 {{url}}、{{content}} */
   promptTemplate: string;
-  /** 是否从 Trae 输出中自动收集 # 标签写入 frontmatter */
+  /** 是否从 AI 输出中自动收集 # 标签写入 frontmatter */
   autoTags: boolean;
   /** 打开添加窗口时是否自动用剪贴板里的链接预填 */
   autoReadClipboard: boolean;
 }
 
 export const DEFAULT_SETTINGS: ObsidianTraeSettings = {
-  traePat: "",
-  traeBaseUrl: "https://api.trae.cn",
-  model: "GLM-5.1",
+  apiKey: "",
+  apiBaseUrl: "https://api.deepseek.com",
+  model: "deepseek-chat",
   targetFolder: "Trae 收藏",
   noteNameTemplate: "{{date}}-{{title}}",
   promptTemplate: `请把以下文章整理为适合 Obsidian 的 Markdown 笔记：

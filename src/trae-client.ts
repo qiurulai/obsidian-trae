@@ -1,4 +1,4 @@
-// TraeClient：通过 Obsidian requestUrl 调用 Trae 模型（OpenAI 兼容端点）
+// AIClient：通过 Obsidian requestUrl 调用 OpenAI 兼容的第三方模型端点
 // 跨桌面/移动端，绕过 CORS。
 
 import { requestUrl } from "obsidian";
@@ -10,18 +10,18 @@ export interface ChatResult {
   text: string;
 }
 
-export class TraeClient {
+export class AIClient {
   constructor(private settings: ObsidianTraeSettings) {}
 
   private get endpoint(): string {
-    const base = (this.settings.traeBaseUrl || "").trim().replace(/\/+$/, "");
+    const base = (this.settings.apiBaseUrl || "").trim().replace(/\/+$/, "");
     return `${base}/v1/chat/completions`;
   }
 
-  /** 测试连接：发一个最小请求验证 PAT 与端点 */
+  /** 测试连接：发一个最小请求验证 API Key 与端点 */
   async testConnection(): Promise<{ ok: boolean; message: string }> {
-    if (!this.settings.traePat) {
-      return { ok: false, message: "未配置 PAT，请在设置中填写。" };
+    if (!this.settings.apiKey) {
+      return { ok: false, message: "未配置 API Key，请在设置中填写。" };
     }
     try {
       const r = await this.chat("reply with: ok", 8);
@@ -35,16 +35,16 @@ export class TraeClient {
   }
 
   /**
-   * 调用 Trae 生成。
+   * 调用模型生成。
    * 兼容 SSE 流式响应、整体 JSON、纯文本三种返回。
    */
   async chat(prompt: string, maxTokens?: number): Promise<ChatResult> {
-    if (!this.settings.traePat) {
-      return { ok: false, message: "未配置 PAT。", text: "" };
+    if (!this.settings.apiKey) {
+      return { ok: false, message: "未配置 API Key。", text: "" };
     }
 
     const body: Record<string, unknown> = {
-      model: this.settings.model || "GLM-5.1",
+      model: this.settings.model || "deepseek-chat",
       messages: [{ role: "user", content: prompt }],
       stream: true,
     };
@@ -57,7 +57,7 @@ export class TraeClient {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${this.settings.traePat}`,
+          Authorization: `Bearer ${this.settings.apiKey}`,
           Accept: "text/event-stream",
         },
         body: JSON.stringify(body),
@@ -66,13 +66,13 @@ export class TraeClient {
     } catch (e) {
       return {
         ok: false,
-        message: `网络错误：${(e as Error).message}（请检查 Base URL）`,
+        message: `网络错误：${(e as Error).message}（请检查 API Base URL）`,
         text: "",
       };
     }
 
     if (res.status === 401 || res.status === 403) {
-      return { ok: false, message: "PAT 无效或已失效（401/403）。", text: "" };
+      return { ok: false, message: "API Key 无效或已失效（401/403）。", text: "" };
     }
     if (res.status >= 400) {
       return {
@@ -84,7 +84,7 @@ export class TraeClient {
 
     const text = this.parseResponse(res.text);
     if (!text) {
-      return { ok: false, message: "Trae 返回为空。", text: "" };
+      return { ok: false, message: "模型返回为空。", text: "" };
     }
     return { ok: true, message: "完成", text };
   }

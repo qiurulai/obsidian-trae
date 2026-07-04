@@ -46,7 +46,7 @@ export class NoteWriter {
     const lines = [
       `source: ${article.url}`,
       `fetched_at: ${new Date().toISOString()}`,
-      `via: trae-work`,
+      `via: obsidian-trae`,
       `title: ${this.escapeYaml(this.resolveTitleRaw(article))}`,
     ];
     if (tags.length) {
